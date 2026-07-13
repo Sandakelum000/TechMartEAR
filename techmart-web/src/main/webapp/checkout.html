@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout - ShopHub</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+<div id="header-slot"></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="toastNotification" class="hidden fixed bottom-5 right-5 z-50 bg-gray-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 transition-all duration-300"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+        <section class="lg:col-span-2 space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs space-y-4">
+                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-5 h-5 text-indigo-600"></i> Delivery Address Details
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                    <label class="border-2 border-indigo-600 p-4 rounded-xl flex items-start gap-3 cursor-pointer bg-indigo-50/40" id="labelSavedAddress">
+                        <input type="radio" name="addressMode" value="saved" checked onchange="toggleAddressView(true)" class="mt-1 accent-indigo-600">
+                        <div>
+                            <span class="block font-bold text-sm text-gray-900">Use Primary Saved Address</span>
+                            <span class="block text-xs text-gray-500 mt-0.5">Ship to your account profile destination.</span>
+                        </div>
+                    </label>
+                    <label class="border border-gray-200 p-4 rounded-xl flex items-start gap-3 cursor-pointer hover:bg-gray-50 transition-colors" id="labelNewAddress">
+                        <input type="radio" name="addressMode" value="new" onchange="toggleAddressView(false)" class="mt-1 accent-indigo-600">
+                        <div>
+                            <span class="block font-bold text-sm text-gray-900">Specify Alternate Address</span>
+                            <span class="block text-xs text-gray-500 mt-0.5">Overwrites your primary account details.</span>
+                        </div>
+                    </label>
+                </div>
+
+                <form id="checkoutAddressForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 transition-all duration-300 opacity-60 pointer-events-none">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">First Name</label>
+                        <input type="text" id="txtFirstName" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Last Name</label>
+                        <input type="text" id="txtLastName" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Address Line 1</label>
+                        <input type="text" id="txtLineOne" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Address Line 2 (Optional)</label>
+                        <input type="text" id="txtLineTwo" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Postal Code</label>
+                        <input type="text" id="txtPostalCode" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all" placeholder="e.g. 20000">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Mobile Contact No</label>
+                        <input type="tel" id="txtMobile" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all" placeholder="e.g. 0771234567">
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <aside class="lg:col-span-1 space-y-6 sticky top-24">
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs">
+                <h3 class="text-base font-bold text-gray-900 mb-4 uppercase tracking-wider flex items-center justify-between">
+                    <span>Items Review</span>
+                    <span id="txtSummaryCount" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">0</span>
+                </h3>
+
+                <div id="checkoutSummaryItems" class="divide-y divide-gray-100 max-h-64 overflow-y-auto pr-1 mb-4">
+                </div>
+
+                <div class="space-y-3 text-sm font-medium text-gray-600 border-t border-gray-100 pt-4">
+                    <div class="flex justify-between">
+                        <span>Total Item Cost</span>
+                        <span id="checkoutSubtotal" class="text-gray-900 font-semibold">$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping Protection</span>
+                        <span class="text-emerald-600 font-semibold">FREE</span>
+                    </div>
+                    <hr class="border-gray-100">
+                    <div class="flex justify-between text-base font-bold text-gray-900 pt-1">
+                        <span>Amount to Pay</span>
+                        <span id="checkoutTotalAmount" class="text-indigo-600 text-lg font-black">$0.00</span>
+                    </div>
+                </div>
+
+                <button
+                        onclick="executePaymentVerificationPipeline()"
+                        class="w-full mt-6 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer border-none"
+                >
+                    <i data-lucide="credit-card" class="w-5 h-5"></i> Initialize Secure Payment
+                </button>
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+<script src="assets/js/header.js"></script>
+<script src="assets/js/checkout.js"></script>
+</body>
+</html>

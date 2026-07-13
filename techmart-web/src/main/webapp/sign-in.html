@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | TechMart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen px-4">
+
+<div class="max-w-md w-full bg-white rounded-2xl shadow-xl border border-gray-100 p-8 space-y-6">
+    <div class="text-center">
+        <a href="index.html" class="text-3xl font-bold text-indigo-600 tracking-tight">TechMart</a>
+        <h2 class="text-xl font-semibold text-gray-900 mt-4">Welcome back</h2>
+        <p class="text-sm text-gray-500 mt-1">Please enter your details to sign in</p>
+    </div>
+
+    <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+        <input type="email" id="email" required
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm">
+    </div>
+
+    <div>
+        <div class="flex justify-between items-center">
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <a href="#" class="text-xs text-indigo-600 hover:underline">Forgot password?</a>
+        </div>
+        <input type="password" id="password" required
+               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition text-sm">
+    </div>
+
+    <div class="flex items-center">
+        <input type="checkbox" id="remember"
+               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+        <label for="remember" class="ml-2 block text-xs text-gray-600">Remember me for 30 days</label>
+    </div>
+
+    <button type="submit" onclick="signIn();"
+            class="w-full bg-indigo-600 text-white font-medium py-2 rounded-lg hover:bg-indigo-700 transition shadow-sm text-sm">
+        Sign In
+    </button>
+    <div class="relative flex items-center justify-center my-4">
+        <div class="border-t border-gray-200 w-full"></div>
+        <span class="absolute bg-white px-3 text-xs text-gray-400 uppercase tracking-wider">Or continue with</span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+        <button class="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2 text-sm font-medium hover:bg-gray-50 transition text-gray-700">
+            <i class="fa-brands fa-google text-red-500"></i> Google
+        </button>
+        <button class="flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-2 text-sm font-medium hover:bg-gray-50 transition text-gray-700">
+            <i class="fa-brands fa-apple text-black"></i> Apple
+        </button>
+    </div>
+
+    <p class="text-center text-sm text-gray-600 mt-6">
+        Don't have an account? <a href="sign-up.html" class="text-indigo-600 font-semibold hover:underline">Sign up</a>
+    </p>
+</div>
+
+<script src="assets/js/sign-in.js"></script>
+
+
+</body>
+</html>

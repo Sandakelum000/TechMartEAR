@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techmart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen tracking-tight">
+
+<div id="header-slot"></div>
+
+<header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="max-w-xl space-y-4">
+            <span class="text-indigo-400 font-semibold tracking-wider uppercase text-xs px-2.5 py-1 bg-indigo-500/10 rounded-md border border-indigo-500/20">New Season Arrival</span>
+            <h1 class="text-4xl sm:text-5xl font-black tracking-tight">Clearance Up To 50% Off</h1>
+            <p class="text-base text-slate-400 font-medium">Discover our curated collection of premium essentials designed to elevate your everyday lifestyle.</p>
+            <div class="pt-2">
+                <a href="#trending-section" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm px-5 py-3 rounded-xl shadow-lg shadow-indigo-600/10 transition-all">
+                    <span>Explore Catalog</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hidden md:block">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80" alt="Hero Promo" class="rounded-2xl shadow-2xl max-w-sm border border-slate-800">
+        </div>
+    </div>
+</header>
+
+<main id="trending-section" class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-14">
+
+    <div class="flex items-center justify-between gap-4 mb-8">
+        <div>
+            <h2 class="text-2xl font-black text-slate-100">Trending Products</h2>
+            <p class="text-xs text-slate-400 font-medium mt-1">Live active warehouse inventory channels processed in real-time.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button onclick="slideCarouselContainer('left')" class="p-2.5 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 rounded-xl transition-all cursor-pointer text-slate-300">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button onclick="slideCarouselContainer('right')" class="p-2.5 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800 rounded-xl transition-all cursor-pointer text-slate-300">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="relative w-full overflow-hidden">
+        <div id="product-carousel" class="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar py-2 px-1 snap-x snap-mandatory">
+            <div class="w-full text-center py-20 text-slate-500">
+                <i data-lucide="refresh-cw" class="w-8 h-8 mx-auto animate-spin text-indigo-500 mb-2"></i>
+                <p class="text-sm font-semibold">Synchronizing catalog</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-center mt-12">
+        <a href="search.html"
+           class="inline-flex items-center gap-3 bg-slate-900 hover:bg-indigo-600 border border-slate-800 hover:border-transparent text-slate-200 hover:text-white font-bold text-sm px-8 py-4 rounded-xl shadow-xl hover:shadow-indigo-600/10 transition-all group cursor-pointer">
+            <i data-lucide="search" class="w-4 h-4 text-indigo-400 group-hover:text-white transition-colors"></i>
+            <span>Go to Shopping & Search</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 tracking-normal opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+        </a>
+    </div>
+</main>
+
+<footer class="bg-slate-900 border-t border-slate-800 py-8 text-center text-xs text-slate-500 font-medium">
+    <p>&copy; 2026 Techmart Marketplace. All rights reserved.</p>
+</footer>
+
+<script src="assets/js/header.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

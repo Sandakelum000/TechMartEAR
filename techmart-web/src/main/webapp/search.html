@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMart | Product Search </title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+<header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-2 shrink-0">
+            <div class="p-2 bg-indigo-600 rounded-lg text-white">
+                <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+            </div>
+            <a href="index.html">
+            <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent hidden sm:block">TechMart</span></a>
+        </div>
+
+        <form id="searchForm" class="flex-1 max-w-2xl" onsubmit="event.preventDefault(); handleSearch();">
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </div>
+                <input
+                        type="text"
+                        id="searchInput"
+                        class="w-full pl-10 pr-4 py-2 bg-gray-100 border border-transparent rounded-xl focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all placeholder-gray-400"
+                        placeholder="Search for items across hardware, appliances, or tech..."
+                >
+            </div>
+        </form>
+
+        <div class="flex items-center gap-4 text-gray-500 shrink-0">
+            <a href="cart.html">
+            <button class="p-2 hover:bg-gray-100 rounded-full relative">
+                <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-indigo-600 rounded-full"></span>
+            </button></a>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+
+        <aside class="lg:col-span-1 bg-white p-6 rounded-2xl border border-gray-200 shadow-xs sticky top-24 h-fit max-h-[calc(100vh-8rem)] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <i data-lucide="sliders-horizontal" class="w-5 h-5 text-indigo-600"></i> Filters
+                </h2>
+                <button onclick="resetFilters()" class="text-xs text-indigo-600 font-semibold hover:underline bg-transparent cursor-pointer">Reset All</button>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Categories</h3>
+                    <div id="categoryContainer" class="space-y-2"></div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Brands</h3>
+                    <div id="brandContainer" class="space-y-2"></div>
+                </div>
+
+                <hr class="border-gray-100">
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Sort By</h3>
+                    <div class="relative">
+                        <select
+                                id="sortSelect"
+                                onchange="applyFilters()"
+                                class="w-full bg-gray-50 border border-gray-200 text-gray-700 py-2.5 px-3 pr-8 rounded-xl text-sm focus:bg-white focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-hidden transition-all appearance-none cursor-pointer"
+                        >
+                            <option value="LATEST">Latest</option>
+                            <option value="OLDEST">Oldest</option>
+                            <option value="PRICE_LOW">Price: Low to High</option>
+                            <option value="PRICE_HIGH">Price: High to Low</option>
+                            <option value="NAME">Name</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="border-gray-100">
+
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider">Max Price</h3>
+                        <span id="priceValue" class="text-sm font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">$500</span>
+                    </div>
+                    <input
+                            type="range"
+                            id="priceSlider"
+                            min="10"
+                            max="500"
+                            value="500"
+                            class="custom-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                            oninput="updatePriceLabel(this.value)"
+                    >
+                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                        <span>$10</span>
+                        <span>$500</span>
+                    </div>
+                </div>
+
+                <button
+                        onclick="applyFilters()"
+                        class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer border-none"
+                >
+                    <i data-lucide="filter" class="w-4 h-4"></i> Apply Filters
+                </button>
+            </div>
+        </aside>
+
+        <section class="lg:col-span-3 space-y-6">
+            <div class="flex items-center justify-between">
+                <p class="text-sm text-gray-500" id="resultCount">Loading products...</p>
+                <div class="text-xs text-gray-400 italic">Grouped by dynamic category indices</div>
+            </div>
+
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+            <nav id="paginationContainer" class="flex items-center justify-center gap-2 pt-6 border-t border-gray-200"></nav>
+        </section>
+
+    </div>
+</main>
+
+<script src="assets/js/search.js"></script>
+</body>
+</html>

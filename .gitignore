@@ -1,0 +1,25 @@
+# Target directories (Compiled build outputs)
+target/
+**/target/
+*.war
+*.ear
+*.jar
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+**/out/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Local configuration files
+*.local.properties
+*.local
