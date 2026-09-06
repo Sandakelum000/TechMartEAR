@@ -8,8 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 public class PayHereUtil {
-    private static final String MERCHANT_ID = "1223972";
-    private static final String MERCHANT_SECRET = "MTg3MTA2ODg1NzcyNTkwNzgyOTEzMDg1Nzk4NzQyNTMyOTg2Njc3";
+    private static final String MERCHANT_ID = "";
+    private static final String MERCHANT_SECRET = "";
     public static final String APP_CURRENCY = "LKR";
     public static final String APP_COUNTRY = "Sri Lanka";
     public static final int PAYMENT_SUCCESS = 2;
